@@ -1,0 +1,16 @@
+[project]
+name = "my-gemini-requestor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Marvin Tensuan", email = "mdtensuan_dev@protonmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "google-genai>=1.10.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
