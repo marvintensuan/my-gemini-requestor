@@ -56,9 +56,6 @@ class GeminiRequestor:
                 "No valid response at the moment. Have you tried to `send_request`?"
             )
 
-        if self._response is None:
-            raise NotYetRequestedError()
-
         if isinstance(self._response, types.GenerateContentResponse):
             pattern = r"```json(?:[a-zA-Z0-9]*\n)?(.*?)```"
             match = re.findall(pattern, self._response.text, re.DOTALL)
