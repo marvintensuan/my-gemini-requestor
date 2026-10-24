@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 import re
+from pathlib import Path
 
 from google import genai
 from google.genai import types
@@ -58,8 +58,9 @@ class GeminiRequestor:
 
         if isinstance(self._response, types.GenerateContentResponse):
             pattern = r"```json(?:[a-zA-Z0-9]*\n)?(.*?)```"
-            match = re.findall(pattern, self._response.text, re.DOTALL)
-            return match[0] if match else self._response.text
+            text = self._response.text or ""
+            match = re.findall(pattern, text, re.DOTALL)
+            return match[0] if match else text
         return str(self._response)
 
     def send_request(self) -> None:
@@ -70,7 +71,7 @@ class GeminiRequestor:
             FileNotFoundError: If the specified file path does not exist.
             RuntimeError: If the request fails for any reason.
         """
-        parts = [self.prompt]
+        parts: list[str | types.Part] = [self.prompt]
 
         if self.file_path:
             if not self.file_path.exists():
